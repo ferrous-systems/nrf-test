@@ -9,7 +9,6 @@ use panic_halt;
 use dwm1001::{
     nrf52832_hal::{
         prelude::*,
-        uarte::Error as UErr,
     },
     DWM1001,
 };
@@ -28,37 +27,11 @@ fn main() -> ! {
     // board.leds.D11 - Bottom LED RED
     // board.leds.D10 - Bottom LED GREEN
 
-    let out: [u8; 6] = [
-        0x70, // P
-        0x69, // I
-        0x6e, // N
-        0x67, // G
-        0x0d, // CR
-        0x0a  // LF
-    ];
-
-    let mut buf = [0u8; 1];
-
     loop {
         board.leds.D9.enable();
-        timer.delay(10_000);
-        board.leds.D9.disable();
+        timer.delay(250_000);
 
-        match board.uart.read_timeout(
-            &mut buf,
-            &mut timer,
-            5_000_000) {
-            Ok(_) => {
-                board.uart.write(&buf).unwrap();
-            }
-            Err(UErr::Timeout(n)) if n > 0 => {
-                board.uart.write(&buf[..n]).unwrap();
-                board.uart.write(&out[4..]).unwrap();
-                board.uart.write(&out).unwrap();
-            }
-            Err(_) => {
-                panic!()
-            }
-        };
+        board.leds.D9.disable();
+        timer.delay(750_000);
     }
 }
