@@ -4,15 +4,26 @@ version = "0.1.0"
 authors = ["James Munns <james.munns@ferrous-systems.com>"]
 edition = "2018"
 
+
 [dependencies]
 panic-halt  = "0.2"
 cortex-m-rt = "0.6.5"
 heapless    = "0.4.0"
+nb = "*"
+
 
 [dependencies.dwm1001]
 git = "https://github.com/ferrous-systems/rust-dwm1001.git"
-rev = "january"
+rev = "146efcb289b75ea124c7eb7038253460c5f8259f"
 features = ["dev", "rt"]
 
+[dependencies.serde]
+version = "1.0"
+default-features = false
+
+[dependencies.ssmarshal]
+version = "1.0"
+default-features = false
+
 [patch.crates-io]
-nrf52832-hal = { git = "https://github.com/nrf-rs/nrf52-hal.git", rev = "fix-uarte" }
+nrf52832-hal = { git = "https://github.com/nrf-rs/nrf52-hal.git", rev = "2d87214c5ab63080034ddec5d30a2ef1d6abad0e" }
